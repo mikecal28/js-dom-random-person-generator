@@ -1,0 +1,175 @@
+html {
+  width: 100%;
+  height: 100%;
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      background-color: bisque;
+      // border: 1px solid black;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: red;
+    }
+
+    .page-container {
+      width: 100%;
+      height: 100%;
+      background-color: bisque;
+      display: grid;
+      grid-template-areas:
+        "a d"
+        "c d";
+      grid-template-columns: max(14vw, 140px) 1fr;
+      grid-template-rows: min(calc(2vh + 5vw), 60px) 1fr;
+
+      .header-wrapper {
+        grid-area: a;
+        border: 2px solid red;
+      }
+
+      .left-body-wrapper {
+        grid-area: c;
+        border: 2px solid red;
+        padding: 5% max(15%, 25px);
+        overflow-y: scroll;
+
+        .participant-wrapper {
+          // border: 1px dashed blue;
+          display: grid;
+          grid-template-areas:
+            "a a b"
+            "c c d";
+          grid-template-columns: 7vw min(10vw, 5px);
+          grid-template-rows: min(8vh, 35px) min(8vh, 35px);
+          gap: min(1%, 5px);
+          font-size: min(calc(min(2vh, 5px) + 2.15vw), 18px);
+        }
+
+        .participant-name {
+          grid-area: a;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          // border: 1px dashed blue;
+        }
+
+        .weight-count {
+          grid-area: b;
+          display: flex;
+          align-items: flex-end;
+          // border: 1px dashed blue;
+        }
+
+        .weight-up {
+          grid-area: c;
+          // border: 1px dashed blue;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-start;
+
+          .up-icon-div {
+            height: 15px;
+            width: 15px;
+            // padding: 0px 2px;
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            p {
+              color: white;
+              position: relative;
+              top: -2px;
+              height: 5px;
+              width: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+
+        .weight-down {
+          grid-area: d;
+          // border: 1px dashed blue;
+          display: flex;
+          align-items: flex-start;
+
+          .down-icon-div {
+            height: 15px;
+            width: 15px;
+            // padding: 0 4px;
+            // width: 10px;
+            background-color: blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            p {
+              color: white;
+              position: relative;
+              top: -2px;
+              height: 5px;
+              width: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+
+      .right-body-wrapper {
+        grid-area: d;
+        border: 2px solid red;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .random-person {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: min(60vw, 600px);
+          height: max(25%, 150px);
+          border: 2px solid lightblue;
+          font-size: min(calc(0.5vh + 20vw), 150px);
+          // font-size: 8vw;
+        }
+
+        .start-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: min(40vw, 400px);
+          height: min(18%, 60px);
+          background-color: red;
+          border-radius: min(1vw, 5px);
+          font-size: min(calc(0.5vh + 3vw), 32px);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

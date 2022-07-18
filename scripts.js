@@ -34,17 +34,41 @@ async function streamNames() {
   const nameDisplay = document.querySelector(".random-person");
   let previousName = "";
   let counter = 0;
-  while (counter < fullParticipantArrayLength + 4 - storageArray.length) {
-    for (let currentName of storageArray) {
-      if (currentName !== previousName) {
-        await delay();
-        nameDisplay.innerHTML = currentName.slice(0, -1);
+  if (fullParticipantArrayLength >= storageArray.length) {
+    while (counter < fullParticipantArrayLength + 4 - storageArray.length) {
+      for (let currentName of storageArray) {
+        if (currentName !== previousName) {
+          await delay();
+          nameDisplay.innerHTML = currentName.slice(0, -1);
+        }
+        previousName = currentName;
       }
-      previousName = currentName;
+      counter++;
     }
-    counter++;
+  } else {
+    while (counter < storageArray.length + 2 - fullParticipantArrayLength) {
+      for (let currentName of storageArray) {
+        if (currentName !== previousName) {
+          await delay();
+          nameDisplay.innerHTML = currentName.slice(0, -1);
+        }
+        previousName = currentName;
+      }
+      counter++;
+    }
   }
 }
+
+let colorCounter = 0;
+const flashText = (element, color) => {
+  if (element.style.color === "rgb(20, 24, 58)") {
+    element.style.color = color;
+  } else {
+    element.style.color = "rgb(20, 24, 58)";
+  }
+  colorCounter++;
+  return colorCounter;
+};
 
 const main = async () => {
   const participantsArea = document.querySelector(".left-body-wrapper");
@@ -73,13 +97,23 @@ const main = async () => {
       Math.floor(Math.random() * storageArray.length)
     );
     await streamNames();
+
     console.log(chosenParticipant);
     nameDisplay.innerHTML = chosenParticipant.slice(0, -1);
+    nameDisplay.style.color = "skyblue";
+
+    const beginFlashText = setInterval(() => {
+      const handleFlashText = flashText(nameDisplay, "skyblue");
+      if (handleFlashText > 15) {
+        clearInterval(beginFlashText);
+        nameDisplay.style.color = "rgb(20, 24, 58)";
+        colorCounter = 0;
+      }
+    }, 300);
 
     const allParticipants = document.querySelectorAll(".participant-name");
     allParticipants.forEach((person) => {
       if (person.innerText === chosenParticipant) {
-        // console.log(person.pare);
         const weightAmount =
           person.parentElement.firstElementChild.nextSibling.nextSibling
             .innerText;

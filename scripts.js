@@ -17,6 +17,7 @@ const storageArray = [];
 let fullParticipantArrayLength = 0;
 
 const titleCase = (someName) => {
+  console.log("someName: ", someName);
   const letterArray = Array.from(someName);
   let titledName =
     letterArray[0].toUpperCase() + letterArray.slice(1).join("") + ":";
@@ -74,13 +75,14 @@ const main = async () => {
   const participantsArea = document.querySelector(".left-body-wrapper");
   participantsArea.firstElementChild.style.display = "none";
 
-  const participantsArray = await fetch(
-    "https://devpipeline-mock-api.herokuapp.com/api/get-users"
-  )
-    .then((response) => response.json())
-    .then((data) => data.users);
+  // const participantsArray = await fetch(
+  //   "https://devpipeline-mock-api.herokuapp.com/api/get-users"
+  // )
+  //   .then((response) => response.json())
+  //   .then((data) => data.users);
 
-  console.log(participantsArray);
+  const participantsArray = [{ first_name: "" }];
+
   fullParticipantArrayLength = participantsArray.length;
   for (let obj of participantsArray) {
     storageArray.push(titleCase(obj.first_name));
@@ -98,7 +100,6 @@ const main = async () => {
     );
     await streamNames();
 
-    console.log(chosenParticipant);
     nameDisplay.innerHTML = chosenParticipant.slice(0, -1);
     nameDisplay.style.color = "skyblue";
 
@@ -126,18 +127,12 @@ const main = async () => {
         if (storageArray.includes(chosenParticipant)) {
           storageArray.splice(storageArray.indexOf(chosenParticipant), 1);
         }
-        console.log(storageArray);
       }
     });
   });
 
   addWeightButton.forEach((button) =>
     button.addEventListener("click", (e) => {
-      console.log(
-        e.target.parentElement.parentElement.parentElement.firstElementChild
-          .nextSibling.nextSibling.innerHTML
-      );
-
       const currentParticipant =
         e.target.parentElement.parentElement.parentElement.firstElementChild
           .innerHTML;
@@ -149,25 +144,17 @@ const main = async () => {
       const nextWeight = Number(`${weightAmount}`) + 1;
       e.target.parentElement.parentElement.parentElement.firstElementChild.nextSibling.nextSibling.innerHTML =
         nextWeight;
-      console.log(storageArray);
 
       storageArray.splice(
         storageArray.indexOf(currentParticipant),
         0,
         currentParticipant
       );
-
-      console.log(storageArray);
     })
   );
 
   subtractWeightButton.forEach((button) =>
     button.addEventListener("click", (e) => {
-      console.log(
-        e.target.parentElement.parentElement.parentElement.firstElementChild
-          .innerHTML
-      );
-
       let theTarget = e.target;
 
       function subtractWeight(theParticipant) {
@@ -185,21 +172,13 @@ const main = async () => {
             nextWeight;
         }
 
-        console.log(storageArray);
         if (storageArray.includes(currentParticipant)) {
           storageArray.splice(storageArray.indexOf(currentParticipant), 1);
         }
       }
       subtractWeight(theTarget);
 
-      console.log(storageArray);
       Math.floor(Math.random() * storageArray.length + 1);
-    })
-  );
-
-  subtractWeightButton.forEach((button) =>
-    button.addEventListener("click", (e) => {
-      console.log("no");
     })
   );
 };
